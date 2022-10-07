@@ -32,3 +32,24 @@ ch=[0]*(N+1) # 순열만들 때 중복 제거를 위해 check
 for i in range(1, N): # 이항계수 초기화
     b[i]=b[i-1]*(N-i)//i
 dfs(0, 0)
+
+
+
+# 수열 추측하기 - 라이브러리 이용
+from itertools import permutations
+
+N, F = map(int, input().split())
+b=[1]*N
+cnt=0
+for i in range(1, N+1):
+    b[i]=b[i-1]*(N-i)//i
+a=list(range(1, N+1))
+for tmp in permutations(a):
+    sum=0
+    for L, x in enumerate(tmp): #tmp 튜플 자료 중 1개씩접근 1, 2, 3, 4
+        sum+=(x*b[L])
+    if sum==F:
+        for x in tmp:
+            print(x, end=' ')
+        break # 순열을 브레이크
+print(cnt)
