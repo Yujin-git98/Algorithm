@@ -25,3 +25,19 @@ res=[0]*N
 cnt=0
 dfs(0,0, 0) # num배열의 값을 가져와야하기 때문에 1이 아니라 0부터 시작
 print(cnt)
+
+
+# 라이브러리 사용
+from itertools import permutations
+from itertools import combinations
+
+N, K =map(int, input().split())
+num=list(map(int, input().split()))
+M = int(input())
+cnt=0
+res=0
+for com in combinations(num, K):
+    if sum(com)%M==0:
+        cnt+=1
+print(cnt)
+
