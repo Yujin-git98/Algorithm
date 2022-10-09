@@ -16,6 +16,7 @@ dy=[0, 1, 0, -1]
 board=[list(map(int, input().split())) for _ in range(7)] # 2차원 배열로 7*7 격자판 미로 생성
 dis=[[0]*7 for _ in range(7)]
 dq=deque()
+dq.append((0, 0))
 board[0][0]=1
 while dq:
     tmp=dq.popleft()
