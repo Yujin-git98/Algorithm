@@ -65,3 +65,45 @@ N, M = map(int, input().split())
 r, c, d = map(int, input().split())
 visited = [list(map(int, input().split())) for _ in range(N)]
 bfs(r, c, d)
+
+
+# 그냥 구현으로 푼 경우
+# 로봇 청소기
+n, m = map(int, input().split())
+r, c, direc = map(int, input().split())
+dr=[-1, 0, 1, 0] #북동남서
+dc=[0, 1, 0, -1]
+board = [list(map(int, input().split())) for _ in range(n)] #벽은 1, 빈칸은 0
+visited=[[0]*m for _ in range(n)] # 방문은 1, 미방문은 0
+
+#현재 위치를 청소한다.
+visited[r][c]=1 #현재 있는 위치는 청소를 했으니까
+cnt=1 #청소한 횟수 : 현재 있는 위치는 청소를 했으니까
+turn_time = 0 #회전한 횟수
+
+while True:
+    #현재 위치에서 왼쪽방향부터 탐색
+    direc=(direc-1)%4
+    nr=r+dr[direc]
+    nc=c+dc[direc]
+    #왼쪽 방향에 아직 청소하지 않은 공간이 존재한다면, 한칸 전진후 다시 왼쪽반향 탐색
+    if visited[nr][nc]==0 and board[nr][nc]==0:
+        visited[nr][nc]=1
+        r=nr
+        c=nc
+        cnt+=1
+        turn_time=0
+        continue
+    else: #왼쪽방향에 청소할 공간이 없다면 그방향으로 회전하고 다시 왼쪽방향 탐색
+        turn_time+=1
+    if turn_time==4: #네방향이 모두 이미 청소 되어 있거나 벽이면서, 뒤쪽 방향이라도 후진할수 없는 경우는 작동을 멈춘다.
+
+        nr = r - dr[direc]
+        nc = c - dc[direc]
+        if board[nr][nc] == 0:
+            r=nr
+            c=nc
+        else:
+            break
+        turn_time=0
+print(cnt)
