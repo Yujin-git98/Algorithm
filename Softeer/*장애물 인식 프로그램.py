@@ -5,6 +5,8 @@
 # 여기서 연결되었다는 것은 어떤 장애물이 좌우, 혹은 아래위로 붙어있는 경우를 말한다.
 # 대각선 상에 장애물이 있는 경우는 연결된 것이 아니다.
 # 지도를 입력하여 장애물 블록수를 출력하고 각 블록에 속하는 장애물의 수를 오름차순으로 정렬하여 출력해라
+
+## 풀이 참고 : bfs 이용
 from collections import deque
 n=int(input())
 #board=[list(map(int, input().split())) for _ in range(n)]
@@ -45,3 +47,40 @@ result.sort()
 for i in range(len(result)):
     print(result[i])
 
+## 풀이 참고 : dfs 이용
+def dfs(x, y):
+    # 주어진 범위를 벗어나는 경우에 즉시 종료
+    if x <= -1 or x >= n or y <= -1 or y >= n:
+        return False
+    # 현재 노드를 아직 방문하지 않았다면
+    if board[x][y]==1:
+        # 장애물의 개수 체크
+        cnt.append(1)
+        # 해당 노드 방문 처리
+        board[x][y]=0
+        # 상, 하, 좌, 우의 위치들도 모두 재귀적으로 호출
+        dfs(x - 1, y)
+        dfs(x, y - 1)
+        dfs(x + 1, y)
+        dfs(x, y + 1)
+        return True
+    return False
+
+
+n=int(input())
+cnt=[]
+board=[]
+result_list=[]
+for i in range(n):
+    board.append(list(map(int,input())))
+result=0
+for i in range(n):
+    for j in range(n):
+        if dfs(i, j)==True:
+            result+=1
+            result_list.append(len(cnt))
+            cnt=[]
+print(result)
+result_list.sort()
+for i in result_list:
+    print(i)
