@@ -1,4 +1,7 @@
 # 10451번 순열 사이클
+# https://duwjdtn11.tistory.com/522
+# https://davi06000.tistory.com/85
+# https://kimmeh1.tistory.com/325
 # 1부터 N까지 정수로 만들 수 있는 순열의 한 가지 경우가 주어질 경우 1부터 N까지 오름차순으로 정렬한 순열과
 # 1 대 1 대응하여 만들 수 있는 그래프에서 순환 구조는 몇개가 생기는지 리턴하는 함수를 구해라
 # 첫째 줄에 테스트 케이스의 개수 T가 주어진다.
@@ -25,9 +28,9 @@ import sys
 sys.setrecursionlimit(10000)
 
 def dfs(start):
-    visited[start]=1 # 방문한 곳을 1로 표시ㅣ
-    next = path[start]
-    if visited[next] == 0: # 아직 방문하지 않은 곳인 경우
+    visited[start]=1 # 방문한 곳을 1로 표시
+    next = path[start] # 현재 방문한 노드의 다음 노드를 next에 저장하고
+    if visited[next] == 0: # next가 아직 방문하지 않은 곳인 경우 재귀 호출로 방문한다. 하지만 방문했다면 재귀가 멈추고 순환하는 그래프임을 알 수있다
         dfs(next)
 
 T = int(sys.stdin.readline())
